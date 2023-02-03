@@ -28,7 +28,7 @@ namespace MatchGame
         public MainWindow()
         {
             InitializeComponent();
-
+        
             timer.Interval = TimeSpan.FromSeconds(.1);
             timer.Tick += Timer_Tick;
             SetUpGame();
@@ -82,19 +82,19 @@ namespace MatchGame
         }
 
         TextBlock lastTextBlockClicked;
-        bool findingMatch = false;
+        bool findingMatch = false; // it keeps track of whether or not the player just clicked on the first animal in a pair and is now tryting to find its match
 
 
         private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
             TextBlock textBlock = sender as TextBlock;
-            if (findingMatch == false)
+            if (findingMatch == false) // the player just clicked the first animal in a pair, so it makes that animal invisible and keep track of its Textblock in case it needs to make it visible again
             {
                 textBlock.Visibility = Visibility.Hidden;
                 lastTextBlockClicked = textBlock;
                 findingMatch = true;
             }
-            else if (textBlock.Text == lastTextBlockClicked.Text)
+            else if (textBlock.Text == lastTextBlockClicked.Text) // The player found a match ! so it makes the second animal in the pair invisible
             {
                 matchesFound++;
                 textBlock.Visibility = Visibility.Hidden;
@@ -102,7 +102,7 @@ namespace MatchGame
             }
             else
             {
-                lastTextBlockClicked.Visibility = Visibility.Visible;
+                lastTextBlockClicked.Visibility = Visibility.Visible; // the player clicked on an animal that doesn't match, so it makes the first animal that was clicked visible again and reset findingMatch
                 findingMatch = false;
             }
 
